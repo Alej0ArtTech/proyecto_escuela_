@@ -15,6 +15,16 @@ jobs:
           java-version: 17
       - name: Configuración de Gradle
         uses: gradle/gradle-build-action@v2
+
+      - name: Configuración de la base de datos H2 en memoria
+        run:
+            echo "spring.profiles.active=test" >> application.yml
+            echo "spring.datasource.url=jdbc:h2:mem:testdb" >> application.yml
+            echo "spring.datasource.driverClassName=org.h2.Driver" >> application.yml
+            echo "spring.datasource.username=sa" >> application.yml
+            echo "spring.datasource.password=" >> application.yml
+            echo "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect" >> application.yml
+
       - name: Compilar el proyecto
         run: gradle build
 
